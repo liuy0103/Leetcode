@@ -1,0 +1,6 @@
+max(dict, key = dict.get)
+dict最大的value对应的key
+
+array.remove(value)   
+del array[pos]
+array.index(val) 找val的位置
