@@ -5,3 +5,7 @@ dict最大的value对应的key
 array.remove(value)   
 del array[pos]
 array.index(val) 找val的位置
+
+sol.append(current_list) 这样append的是current_list指向的东西，可能会变。如何让append的东西不变呢？
+sol.append(list(current_list)) 这样list(current_list)重新定义了一个list与current_list在不同的位置
+
