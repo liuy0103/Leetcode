@@ -9,3 +9,9 @@ array.index(val) 找val的位置
 sol.append(current_list) 这样append的是current_list指向的东西，可能会变。如何让append的东西不变呢？
 sol.append(list(current_list)) 这样list(current_list)重新定义了一个list与current_list在不同的位置
 
+sol = set()
+sol.add(tuple(sorted(current_list))) 只能用tuple因为set.add()的东西不可变
+此方法可以排除重复答案，因为set不能重复。sort current_list的成本比sort 完整数据小很多
+
+some_list = [[1,2], [3,4]]
+sum(some_list, []) => [1,2,3,4]
