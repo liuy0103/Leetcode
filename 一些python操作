@@ -1,6 +1,6 @@
 max(dict, key = dict.get)
 dict最大的value对应的key
-类似: sort(key=)
+类似: sorted(dict, key=dict.get)
 
 array.remove(value)   
 del array[pos]
