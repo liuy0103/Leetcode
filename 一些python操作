@@ -17,3 +17,4 @@ some_list = [[1,2], [3,4]]
 sum(some_list, []) => [1,2,3,4]
 
 listA.append(listB.pop(0)) listB pop 第一项的同时，listA append这项
+popped_item = listB.pop(0) 可以用来记录被pop的项
