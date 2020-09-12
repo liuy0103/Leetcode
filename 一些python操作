@@ -15,3 +15,5 @@ sol.add(tuple(sorted(current_list))) 只能用tuple因为set.add()的东西不�
 
 some_list = [[1,2], [3,4]]
 sum(some_list, []) => [1,2,3,4]
+
+listA.append(listB.pop(0)) listB pop 第一项的同时，listA append这项
