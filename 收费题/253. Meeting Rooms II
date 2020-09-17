@@ -1,25 +1,13 @@
-Intuition
+Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), find the minimum number of conference rooms required.
 
-This problem is very similar to something that employees of a company can face potentially on daily basis.
+Example 1:
 
-Suppose you work at a company and you belong to the IT department and one of your job responsibilities is securing rooms for meetings that are to happen throughout the day in the office.
+Input: [[0, 30],[5, 10],[15, 20]]
+Output: 2
+Example 2:
 
-You have multiple meeting rooms in the office and you want to make judicious use of them. You don't really want to keep people waiting and want to give a group of employees a room to hold the meeting right on time.
-
-At the same time, you don't really want to use too many rooms unless absolutely necessary. It would make sense to hold meetings in different rooms provided that the meetings are colliding with each other, otherwise you want to make use of as less rooms as possible to hold all of the meetings. How do you go about it ?
-
-I just represented a common scenario at an office where given the start and end times for meetings to happen throughout the day, you, as an IT guy need to setup and allocate the room numbers to different teams.
-
-Let's approach this problem from the perspective of a group of people who want to hold a meeting and have not been allocated a room yet. What would they do?
-
-This group would essentially go from one room to another and check if any meeting room is free. If they find a room that is indeed free, they would start their meeting in that room. Otherwise, they would wait for a room to be free. As soon as the room frees up, they would occupy it.
-
-This is the basic approach that we will follow in this question. So, it is a kind of simulation but not exactly. In the worst case we can assign a new room to all of the meetings but that is not really optimal right? Unless of course they all collide with each other.
-
-We need to be able to find out efficiently if a room is available or not for the current meeting and assign a new room only if none of the assigned rooms is currently free.
-
-Let's look at the first approach based on the idea we just discussed.
-
+Input: [[7,10],[2,4]]
+Output: 1
 
 Approach 1: Priority Queues
 We can't really process the given meetings in any random order. The most basic way of processing the meetings is in increasing order of their start times and this is the order we will follow. After all if you're an IT guy, you should allocate a room to the meeting that is scheduled for 9 a.m. in the morning before you worry about the 5 p.m. meeting, right?
@@ -79,3 +67,42 @@ We consider two pointers: s_ptr and e_ptr which refer to start pointer and end p
 When considering a specific meeting pointed to by s_ptr, we check if this start timing is greater than the meeting pointed to by e_ptr. If this is the case then that would mean some meeting has ended by the time the meeting at s_ptr had to start. So we can reuse one of the rooms. Otherwise, we have to allocate a new room.
 If a meeting has indeed ended i.e. if start[s_ptr] >= end[e_ptr], then we increment e_ptr.
 Repeat this process until s_ptr processes all of the meetings.
+
+
+
+
+
+
+
+import heapq
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if len(intervals) == 0:
+            return 0
+        room = []
+        intervals.sort()
+        heappush(room, intervals[0][1])
+        for interval in intervals[1:]:
+            # heap(priority queue) 从小到大排列
+            if interval[0] >= room[0]:
+                # head pop the smallest
+                heappop(room)
+            heappush(room, interval[1])
+        return len(room)
+            
+#         if len(intervals) == 0:
+#             return 0
+#         # 开始和结束时间分别排序，分开处理。按顺序每当到一个结束时间，对应的会议结束，有一个房间空出来，并不在乎是哪个会议。
+#         # 不能整体排列intervals
+#         start = sorted([x[0] for x in intervals])
+#         end = sorted([x[1] for x in intervals])
+        
+#         i = j = 0
+#         room = 0
+#         while i < len(start) and j < len(start):
+#             if start[i] < end[j]:
+#                 room += 1
+#             else:
+#                 j += 1
+#             i += 1
+#         return room
