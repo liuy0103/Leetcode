@@ -1,0 +1,58 @@
+class Solution:
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if len(matrix) == 0:
+            return 0
+        maxarea = 0
+        dp = [[0] * len(matrix[0]) for _ in range(len(matrix))]
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == '0': continue
+
+                # compute the maximum width and update dp with it
+                width = dp[i][j] = dp[i][j-1] + 1 if j != 0 else 1
+
+                # compute the maximum area rectangle with a lower right corner at [i, j]
+                # 从左上角到[i,j]点的最大长方形
+                for k in range(i, -1, -1):
+                    width = min(width, dp[k][j])
+                    maxarea = max(maxarea, width * (i-k+1))
+        return maxarea
+     
+    Method 2: Stack
+    
+    class Solution:
+    def largestRectangleArea(self, heights):
+        n = len(heights)
+        left = [1]*n
+        right = [1]*n
+        
+        for i in range(1,n):
+            j = i - 1
+            while j>=0 and heights[j] >= heights[i]:
+                j -= left[j]
+            left[i] = i - j
+        for i in range(n-2,-1,-1):
+            j = i + 1
+            while j < len(heights) and heights[i] <= heights[j]:
+                j += right[j] 
+            right[i] = j - i
+        res = 0
+        for i in range(n):
+            res = max(res,heights[i]*(left[i]+right[i]-1))
+        
+        return res
+    
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if len(matrix) == 0:
+            return 0
+        maxarea = 0
+        # Record rows only. Treat rows as histogram, then use largest rectangle of histogram algorithm.
+        dp = [0] * len(matrix[0])
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                # update the state of this row's histogram using the last row's histogram
+                # by keeping track of the number of consecutive ones
+                dp[j] = dp[j] + 1 if matrix[i][j] == '1' else 0
+            # update maxarea with the maximum area from this row's histogram
+            maxarea = max(maxarea, self.largestRectangleArea(dp))
+        return maxarea
