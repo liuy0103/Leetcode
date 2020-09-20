@@ -30,3 +30,6 @@ def func1():
     cumsum += 1
   cumsum = 0
 不可以
+
+不要用 [[0] * m] * n, 这样改变一行时，所有行都会变因为同一个reference
+用 [[0] * m for _ in range(n)] 
