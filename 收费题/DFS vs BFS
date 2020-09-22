@@ -1,0 +1,21 @@
+There are two ways to traverse the tree: DFS depth first search and BFS breadth first search. Here is a small summary
+
+diff
+
+Let's use this problem to discuss the difference between iterative BFS traversal with the queue and iterative DFS preorder traversal with the stack.
+
+Both are starting from the root and going down, both are using additional structures, what's the difference?
+
+Here is how it looks at the big scale: BFS traverses level by level, and DFS first goes to the leaves.
+
+diff
+
+Now let's go down to the implementation. The idea is similar:
+
+Push root into queue (BFS) or stack (DFS).
+
+At each step pop out one node, and push its children into stack/queue.
+
+For BFS: pop out from the left, first push the left child, and then the right one.
+
+For DFS: pop out from the right, first push the right child, and then the left one.
