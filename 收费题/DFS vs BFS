@@ -19,3 +19,16 @@ At each step pop out one node, and push its children into stack/queue.
 For BFS: pop out from the left, first push the left child, and then the right one.
 
 For DFS: pop out from the right, first push the right child, and then the left one.
+
+
+
+Three BFS approaches
+
+The difference is how to find the end of the level, i.e. the rightmost element:
+
+Two queues, one for the previous level and one for the current.
+
+One queue with sentinel to mark the end of the level.
+
+One queue + level size measurement.
+
