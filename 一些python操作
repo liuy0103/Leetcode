@@ -33,3 +33,5 @@ def func1():
 
 不要用 [[0] * m] * n, 这样改变一行时，所有行都会变因为同一个reference
 用 [[0] * m for _ in range(n)] 
+
+查找k-dimension中的点，用kd tree
