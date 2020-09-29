@@ -35,3 +35,5 @@ def func1():
 用 [[0] * m for _ in range(n)] 
 
 查找k-dimension中的点，用kd tree
+
+查找in set 比 in list 快很多
